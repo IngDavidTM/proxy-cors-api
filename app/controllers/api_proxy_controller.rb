@@ -7,7 +7,9 @@ class ApiProxyController < ApplicationController
     response = HTTParty.get(uri)
     response.headers['X-Requested-With'] = 'XMLHttpRequest'
     response.headers['Access-Control-Allow-Origin'] = 'https://torre.bio/api/bios/'
-    puts response
-    render json: response
+    experiences = response['experiences'].select { |hash| hash['category'] == 'jobs' }
+    person = { name: response['person']['name'], picture: response['person']['picture'] }
+    strengths = { strengths: response['strengths'].map { |strength| { name: strength['name'], proficiency: strength['proficiency'], weight: strength['weight'], recommendations: strength['recommendations'] } } }
+    render json: { person: person, experiences: experiences, strengths: strengths }
   end
 end
