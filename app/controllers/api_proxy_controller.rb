@@ -9,7 +9,7 @@ class ApiProxyController < ApplicationController
     response.headers['Access-Control-Allow-Origin'] = 'https://torre.bio/api/bios/'
     experiences = response['experiences'].select { |hash| hash['category'] == 'jobs' }
     person = { name: response['person']['name'], picture: response['person']['picture'] }
-    strengths = { strengths: response['strengths'].map { |strength| { name: strength['name'], proficiency: strength['proficiency'], weight: strength['weight'], recommendations: strength['recommendations'] } } }
+    strengths = response['strengths'].map { |strength| { id: strength['id'], name: strength['name'], proficiency: strength['proficiency'], weight: strength['weight'], recommendations: strength['recommendations'] } }
     render json: { person: person, experiences: experiences, strengths: strengths }
   end
 end
