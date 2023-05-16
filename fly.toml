@@ -1,0 +1,19 @@
+# fly.toml app configuration file generated for proxy-torre on 2023-05-15T16:11:36-05:00
+#
+# See https://fly.io/docs/reference/configuration/ for information about how to use this file.
+#
+
+app = "proxy-torre"
+primary_region = "qro"
+console_command = "/rails/bin/rails console"
+
+[http_service]
+  internal_port = 3000
+  force_https = true
+  auto_stop_machines = true
+  auto_start_machines = true
+  min_machines_running = 0
+
+[[statics]]
+  guest_path = "/rails/public"
+  url_prefix = "/"
